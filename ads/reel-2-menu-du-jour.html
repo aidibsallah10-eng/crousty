@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>Reel 2 - Menu du Jour</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: #0f0f0f;
+    font-family: 'Arial Black', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Top gradient bar */
+  .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #ff006e, #ffbe0b, #8338ec, #3a86ff, #ff006e);
+    background-size: 300%;
+    animation: gradientSlide 3s linear infinite;
+  }
+
+  @keyframes gradientSlide {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+  }
+
+  /* Glow background */
+  .glow-1 {
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(255,0,110,0.25) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(131,56,236,0.25) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+    animation: glowPulse 4s ease-in-out infinite 2s;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+
+  /* Header */
+  .header {
+    position: absolute;
+    top: 80px;
+    left: 60px; right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-circle {
+    width: 90px; height: 90px;
+    background: linear-gradient(135deg, #ff006e, #ffbe0b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    box-shadow: 0 0 30px rgba(255,0,110,0.5);
+  }
+
+  .restaurant-name {
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .date-badge {
+    background: linear-gradient(135deg, #ff006e, #8338ec);
+    color: #fff;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 20px 35px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+  }
+
+  /* Title section */
+  .title-section {
+    position: absolute;
+    top: 250px;
+    left: 60px; right: 60px;
+    z-index: 20;
+  }
+
+  .menu-label {
+    font-size: 36px;
+    color: #ff006e;
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    animation: fadeSlideLeft 0.7s ease forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+    margin-bottom: 20px;
+  }
+
+  .menu-title {
+    font-size: 110px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    animation: fadeSlideLeft 0.7s ease forwards;
+    opacity: 0;
+    animation-delay: 0.7s;
+  }
+
+  .menu-title span {
+    background: linear-gradient(90deg, #ff006e, #ffbe0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Menu items */
+  .menu-items {
+    position: absolute;
+    top: 600px;
+    left: 60px; right: 60px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .menu-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    padding: 40px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    animation: fadeSlideRight 0.7s ease forwards;
+    opacity: 0;
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .menu-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #ff006e, #8338ec);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .menu-item:nth-child(1) { animation-delay: 1s; }
+  .menu-item:nth-child(2) { animation-delay: 1.3s; }
+  .menu-item:nth-child(3) { animation-delay: 1.6s; }
+  .menu-item:nth-child(4) { animation-delay: 1.9s; }
+
+  .item-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .item-emoji {
+    font-size: 70px;
+    filter: drop-shadow(0 5px 15px rgba(255,190,11,0.4));
+  }
+
+  .item-info .item-name {
+    font-size: 52px;
+    color: #fff;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .item-info .item-desc {
+    font-size: 32px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+  }
+
+  .item-price {
+    font-size: 60px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffbe0b, #ff006e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Divider */
+  .divider-line {
+    position: absolute;
+    top: 1480px;
+    left: 60px; right: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  }
+
+  /* Bottom CTA */
+  .bottom-cta {
+    position: absolute;
+    bottom: 120px;
+    left: 60px; right: 60px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    animation: fadeSlideUp 0.7s ease forwards;
+    opacity: 0;
+    animation-delay: 2.4s;
+  }
+
+  .promo-badge {
+    background: linear-gradient(135deg, #ff006e, #ffbe0b);
+    color: #fff;
+    font-size: 46px;
+    font-weight: 900;
+    padding: 30px 80px;
+    border-radius: 100px;
+    letter-spacing: 2px;
+    box-shadow: 0 15px 50px rgba(255,0,110,0.4);
+    animation: promoPulse 2s ease-in-out infinite 3s;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .info-icon { font-size: 50px; }
+
+  .info-text {
+    font-size: 32px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .info-separator {
+    width: 3px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeSlideLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeSlideRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes promoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  /* Floating elements */
+  .float-el {
+    position: absolute;
+    font-size: 55px;
+    opacity: 0.15;
+    animation: floatEl 6s ease-in-out infinite;
+  }
+
+  @keyframes floatEl {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="top-bar"></div>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <!-- Decorative floating elements -->
+  <div class="float-el" style="top:380px; right:80px; animation-delay:0s;">⭐</div>
+  <div class="float-el" style="top:820px; left:30px; animation-delay:2s;">✨</div>
+  <div class="float-el" style="top:1050px; right:40px; animation-delay:1s;">🔥</div>
+  <div class="float-el" style="top:1300px; left:50px; animation-delay:3s;">💫</div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-circle">🍽️</div>
+      <div class="restaurant-name">CROUSTY</div>
+    </div>
+    <div class="date-badge">AUJOURD'HUI</div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-section">
+    <div class="menu-label">✦ SPÉCIAL ✦</div>
+    <h1 class="menu-title">MENU<br><span>DU JOUR</span></h1>
+  </div>
+
+  <!-- Menu Items -->
+  <div class="menu-items">
+    <div class="menu-item">
+      <div class="item-left">
+        <div class="item-emoji">🍔</div>
+        <div class="item-info">
+          <div class="item-name">BURGER ROYAL</div>
+          <div class="item-desc">Bœuf • Cheddar • Sauce maison</div>
+        </div>
+      </div>
+      <div class="item-price">8,90€</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-left">
+        <div class="item-emoji">🍕</div>
+        <div class="item-info">
+          <div class="item-name">PIZZA MAISON</div>
+          <div class="item-desc">Mozzarella • Basilic • Tomate fraîche</div>
+        </div>
+      </div>
+      <div class="item-price">10,50€</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-left">
+        <div class="item-emoji">🌮</div>
+        <div class="item-info">
+          <div class="item-name">TACOS SPÉCIAL</div>
+          <div class="item-desc">Poulet grillé • Avocat • Salsa</div>
+        </div>
+      </div>
+      <div class="item-price">9,00€</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-left">
+        <div class="item-emoji">🍰</div>
+        <div class="item-info">
+          <div class="item-name">DESSERT DU CHEF</div>
+          <div class="item-desc">Tiramisu maison • Crème brûlée</div>
+        </div>
+      </div>
+      <div class="item-price">5,50€</div>
+    </div>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- Bottom CTA -->
+  <div class="bottom-cta">
+    <div class="promo-badge">🚀 LIVRAISON OFFERTE AUJOURD'HUI</div>
+    <div class="info-row">
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-text">Commander<br>par appel</div>
+      </div>
+      <div class="info-separator"></div>
+      <div class="info-item">
+        <div class="info-icon">📱</div>
+        <div class="info-text">Lien en<br>bio</div>
+      </div>
+      <div class="info-separator"></div>
+      <div class="info-item">
+        <div class="info-icon">⏰</div>
+        <div class="info-text">11h - 23h<br>Tous les jours</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

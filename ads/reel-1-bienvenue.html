@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>Reel 1 - Bienvenue</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: linear-gradient(135deg, #ff006e, #8338ec, #3a86ff);
+    font-family: 'Arial Black', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Animated background blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 6s ease-in-out infinite;
+  }
+  .blob-1 {
+    width: 600px; height: 600px;
+    background: #ff006e;
+    top: -100px; left: -150px;
+    animation-delay: 0s;
+  }
+  .blob-2 {
+    width: 500px; height: 500px;
+    background: #8338ec;
+    top: 500px; right: -100px;
+    animation-delay: 2s;
+  }
+  .blob-3 {
+    width: 400px; height: 400px;
+    background: #ffbe0b;
+    bottom: 200px; left: 50px;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-40px) scale(1.05); }
+  }
+
+  /* Particles */
+  .particle {
+    position: absolute;
+    font-size: 60px;
+    animation: particle-float linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes particle-float {
+    0% { transform: translateY(1920px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Main content */
+  .container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 80px 60px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 16px 40px;
+    color: #fff;
+    font-size: 36px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    animation: fadeSlideDown 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.3s;
+  }
+
+  .emoji-big {
+    font-size: 200px;
+    animation: bounceIn 0.8s ease forwards, pulse 2s ease-in-out infinite 1.5s;
+    opacity: 0;
+    animation-delay: 0.6s;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+  }
+
+  .title {
+    font-size: 120px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    text-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    animation: fadeSlideUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 1s;
+    margin-bottom: 30px;
+  }
+
+  .subtitle {
+    font-size: 52px;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    font-weight: 700;
+    animation: fadeSlideUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 1.3s;
+    margin-bottom: 80px;
+  }
+
+  .divider {
+    width: 200px;
+    height: 6px;
+    background: linear-gradient(90deg, #ffbe0b, #ff006e);
+    border-radius: 3px;
+    margin-bottom: 80px;
+    animation: expandWidth 1s ease forwards;
+    width: 0;
+    animation-delay: 1.6s;
+  }
+
+  .tagline {
+    font-size: 48px;
+    color: #ffbe0b;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 2px;
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 1.9s;
+    margin-bottom: 100px;
+  }
+
+  .cta-btn {
+    background: #fff;
+    color: #8338ec;
+    font-size: 50px;
+    font-weight: 900;
+    padding: 40px 100px;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 2px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: bounceIn 0.8s ease forwards, ctaPulse 2s ease-in-out infinite 3s;
+    opacity: 0;
+    animation-delay: 2.3s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .instagram-handle {
+    position: absolute;
+    bottom: 80px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 42px;
+    font-weight: 700;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+    animation-delay: 2.8s;
+  }
+
+  /* Keyframes */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { transform: scale(1.1); }
+    70% { transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  @keyframes expandWidth {
+    to { width: 300px; }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  @keyframes ctaPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 30px 80px rgba(131,56,236,0.5); }
+  }
+
+  /* Stars */
+  .stars {
+    display: flex;
+    gap: 10px;
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 2.1s;
+    font-size: 52px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Background blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Floating food particles -->
+  <div class="particle" style="left:5%; animation-duration:8s; animation-delay:0s;">🍕</div>
+  <div class="particle" style="left:20%; animation-duration:10s; animation-delay:2s;">🍔</div>
+  <div class="particle" style="left:40%; animation-duration:7s; animation-delay:1s;">✨</div>
+  <div class="particle" style="left:60%; animation-duration:9s; animation-delay:3s;">🌮</div>
+  <div class="particle" style="left:75%; animation-duration:11s; animation-delay:0.5s;">🍜</div>
+  <div class="particle" style="left:88%; animation-duration:8s; animation-delay:4s;">⭐</div>
+  <div class="particle" style="left:12%; animation-duration:12s; animation-delay:6s;">🔥</div>
+  <div class="particle" style="left:50%; animation-duration:9s; animation-delay:5s;">💫</div>
+
+  <!-- Main content -->
+  <div class="container">
+    <div class="badge">✦ Nouveau ✦</div>
+    <div class="emoji-big">🍽️</div>
+    <h1 class="title">BIENVENUE<br>CHEZ NOUS</h1>
+    <p class="subtitle">La meilleure expérience culinaire</p>
+    <div class="divider"></div>
+    <p class="tagline">🔥 Des saveurs qui changent tout 🔥</p>
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <br><br>
+    <button class="cta-btn">COMMANDER ICI</button>
+  </div>
+
+  <div class="instagram-handle">📍 Retrouvez-nous sur Instagram</div>
+
+</body>
+</html>
