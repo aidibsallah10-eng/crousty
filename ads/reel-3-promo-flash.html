@@ -3,399 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1080, height=1920">
-<title>Reel 3 - Promo Flash</title>
+<title>Crousty Bowls – Reel 3 Formule</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     width: 1080px;
     height: 1920px;
-    background: linear-gradient(160deg, #0f0015 0%, #1a0030 40%, #0a001f 100%);
-    font-family: 'Arial Black', sans-serif;
+    background: #080808;
+    font-family: 'Arial Black', 'Impact', sans-serif;
     overflow: hidden;
     position: relative;
   }
 
-  /* Neon grid background */
-  .grid-bg {
+  /* Animated background splatter pattern */
+  .bg-pattern {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(247,148,29,0.12) 0%, transparent 35%),
+      radial-gradient(circle at 85% 70%, rgba(140,198,63,0.12) 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(233,30,140,0.06) 0%, transparent 50%);
+    z-index: 1;
+    animation: bgShift 8s ease-in-out infinite;
+  }
+  @keyframes bgShift {
+    0%,100% { opacity:1; }
+    50% { opacity:0.6; }
+  }
+
+  /* Orange flash header */
+  .flash-header {
     position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(131,56,236,0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(131,56,236,0.07) 1px, transparent 1px);
-    background-size: 80px 80px;
-    animation: gridMove 10s linear infinite;
-  }
-
-  @keyframes gridMove {
-    from { background-position: 0 0; }
-    to { background-position: 80px 80px; }
-  }
-
-  /* Neon orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    animation: orbPulse 4s ease-in-out infinite;
-  }
-  .orb-1 {
-    width: 600px; height: 600px;
-    background: rgba(255,0,110,0.3);
-    top: -100px; right: -100px;
-  }
-  .orb-2 {
-    width: 500px; height: 500px;
-    background: rgba(131,56,236,0.3);
-    bottom: 200px; left: -100px;
-    animation-delay: 2s;
-  }
-  .orb-3 {
-    width: 400px; height: 400px;
-    background: rgba(58,134,255,0.2);
-    top: 800px; right: 50px;
-    animation-delay: 1s;
-  }
-
-  @keyframes orbPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.15); }
-  }
-
-  /* FLASH text at top */
-  .flash-bar {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 140px;
-    background: linear-gradient(90deg, #ff006e, #ffbe0b);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 0; left: 0; right: 0; height: 160px;
+    background: #F7941D;
     z-index: 30;
-    animation: flashBar 0.4s ease forwards;
-    opacity: 0;
+    display: flex; align-items: center; justify-content: center;
+    animation: headerDrop 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity:0;
+    animation-delay: 0.1s;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+    padding-bottom: 30px;
   }
 
   .flash-text {
-    font-size: 72px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 10px;
-    text-transform: uppercase;
-    animation: flashText 1s ease-in-out infinite 0.5s;
-    text-shadow: 0 0 30px rgba(255,255,255,0.5);
+    font-size: 72px; font-weight: 900; color: #000;
+    letter-spacing: 6px; text-transform: uppercase;
+    animation: textPulse 1.5s ease-in-out infinite 1s;
   }
 
-  @keyframes flashBar {
-    to { opacity: 1; }
+  @keyframes headerDrop {
+    from { opacity:0; transform:translateY(-100%); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  @keyframes textPulse {
+    0%,100% { transform:scale(1); }
+    50% { transform:scale(1.04); }
   }
 
-  @keyframes flashText {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  /* Countdown or big number */
-  .countdown-section {
+  /* BIG FORMULE NUMBER */
+  .formule-section {
     position: absolute;
-    top: 200px;
-    left: 60px; right: 60px;
+    top: 200px; left: 0; right: 0;
     z-index: 20;
     text-align: center;
-    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    opacity: 0;
-    animation-delay: 0.5s;
+    animation: zoomIn 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity:0; animation-delay:0.5s;
   }
 
-  .discount-label {
-    font-size: 46px;
-    color: rgba(255,255,255,0.7);
-    font-weight: 700;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-  }
-
-  .discount-number {
-    font-size: 340px;
-    font-weight: 900;
-    line-height: 0.85;
-    background: linear-gradient(135deg, #ff006e 0%, #ffbe0b 50%, #ff006e 100%);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientShift 2s linear infinite;
-    filter: drop-shadow(0 0 40px rgba(255,0,110,0.5));
-    display: block;
-  }
-
-  .discount-percent {
-    font-size: 150px;
-    font-weight: 900;
-    color: #fff;
-    opacity: 0.9;
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0%; }
-    100% { background-position: 200%; }
-  }
-
-  @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.5) rotate(-5deg); }
-    to { opacity: 1; transform: scale(1) rotate(0deg); }
-  }
-
-  /* Off label */
-  .off-label {
-    font-size: 100px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 10px;
-    text-transform: uppercase;
-    animation: fadeSlideUp 0.7s ease forwards;
-    opacity: 0;
-    animation-delay: 1.2s;
-  }
-
-  /* Products grid */
-  .products-section {
-    position: absolute;
-    top: 1000px;
-    left: 60px; right: 60px;
-    z-index: 20;
-  }
-
-  .products-title {
-    font-size: 42px;
-    color: rgba(255,255,255,0.6);
-    font-weight: 700;
-    letter-spacing: 4px;
-    margin-bottom: 30px;
-    animation: fadeIn 0.7s ease forwards;
-    opacity: 0;
-    animation-delay: 1.5s;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-  }
-
-  .product-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,0,110,0.3);
-    border-radius: 30px;
-    padding: 40px 30px;
-    text-align: center;
-    animation: cardAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    opacity: 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .product-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,0,110,0.05), rgba(131,56,236,0.05));
-    border-radius: 30px;
-  }
-
-  .product-card:nth-child(1) { animation-delay: 1.7s; }
-  .product-card:nth-child(2) { animation-delay: 1.9s; }
-  .product-card:nth-child(3) { animation-delay: 2.1s; }
-  .product-card:nth-child(4) { animation-delay: 2.3s; }
-
-  .product-emoji { font-size: 80px; margin-bottom: 15px; display: block; }
-
-  .product-name {
-    font-size: 36px;
-    color: #fff;
-    font-weight: 900;
+  .formule-label {
+    font-size: 50px; color: rgba(255,255,255,0.5);
+    letter-spacing: 8px; font-weight: 700;
     margin-bottom: 10px;
   }
 
-  .product-old-price {
-    font-size: 30px;
-    color: rgba(255,255,255,0.4);
-    text-decoration: line-through;
-    margin-bottom: 5px;
+  .formule-price {
+    font-size: 380px; font-weight: 900; line-height: 0.85;
+    color: #F7941D;
+    text-shadow: 12px 12px 0 rgba(0,0,0,0.8), 0 0 80px rgba(247,148,29,0.3);
+    animation: priceGlow 2s ease-in-out infinite 1.5s;
   }
 
-  .product-new-price {
-    font-size: 52px;
-    font-weight: 900;
-    background: linear-gradient(90deg, #ff006e, #ffbe0b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .formule-chf {
+    font-size: 120px; font-weight: 900; color: #fff;
+    letter-spacing: 4px;
   }
 
-  @keyframes cardAppear {
-    from { opacity: 0; transform: translateY(30px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+  .formule-tagline {
+    font-size: 46px; font-style: italic; color: #8CC63F; font-weight: 700;
+    letter-spacing: 1px; margin-top: 10px;
   }
 
-  /* Bottom CTA */
-  .bottom-section {
+  @keyframes zoomIn {
+    from { opacity:0; transform:scale(0.6); }
+    to { opacity:1; transform:scale(1); }
+  }
+  @keyframes priceGlow {
+    0%,100% { text-shadow: 12px 12px 0 rgba(0,0,0,0.8), 0 0 80px rgba(247,148,29,0.3); }
+    50% { text-shadow: 12px 12px 0 rgba(0,0,0,0.8), 0 0 120px rgba(247,148,29,0.6); }
+  }
+
+  /* What's included */
+  .includes-section {
     position: absolute;
-    bottom: 80px;
-    left: 60px; right: 60px;
+    top: 870px; left: 60px; right: 60px;
     z-index: 20;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    animation: fadeSlideUp 0.7s ease forwards;
-    opacity: 0;
-    animation-delay: 2.6s;
   }
 
-  .validity-badge {
-    background: rgba(255,190,11,0.15);
-    border: 2px solid #ffbe0b;
-    color: #ffbe0b;
-    font-size: 36px;
-    font-weight: 900;
-    padding: 20px 60px;
-    border-radius: 50px;
-    letter-spacing: 2px;
-    animation: validityPulse 1.5s ease-in-out infinite 3s;
+  .includes-title {
+    font-size: 44px; color: rgba(255,255,255,0.4);
+    letter-spacing: 6px; font-weight: 700;
+    text-align: center; margin-bottom: 40px;
+    animation: fadeUp 0.6s ease forwards; opacity:0; animation-delay:1.1s;
   }
 
-  @keyframes validityPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(255,190,11,0.2); }
-    50% { box-shadow: 0 0 50px rgba(255,190,11,0.6); }
+  .include-row {
+    display: flex; align-items: center; gap: 35px;
+    background: #141414;
+    border-left: 6px solid #F7941D;
+    border-radius: 0 24px 24px 0;
+    padding: 38px 45px;
+    margin-bottom: 24px;
+    animation: slideRight 0.6s ease forwards; opacity:0;
+  }
+  .include-row:nth-child(2) { animation-delay:1.3s; border-left-color: #8CC63F; }
+  .include-row:nth-child(3) { animation-delay:1.5s; border-left-color: #E91E8C; }
+
+  .include-emoji { font-size: 80px; flex-shrink: 0; }
+  .include-info {}
+  .include-name {
+    font-size: 52px; font-weight: 900; color: #fff;
+    text-transform: uppercase; line-height: 1;
+  }
+  .include-detail {
+    font-size: 34px; font-weight: 400; color: rgba(255,255,255,0.5);
+    font-family: Arial, sans-serif; margin-top: 6px;
   }
 
-  .cta-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #ff006e, #8338ec);
-    color: #fff;
-    font-size: 58px;
-    font-weight: 900;
-    padding: 50px;
-    border-radius: 30px;
+  /* FAIT MAISON badges */
+  .badges-row {
+    position: absolute;
+    top: 1450px; left: 60px; right: 60px;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    animation: fadeUp 0.6s ease forwards; opacity:0; animation-delay:1.8s;
+  }
+
+  .badge-item {
+    background: #141414;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 30px 15px;
     text-align: center;
-    letter-spacing: 3px;
-    box-shadow: 0 20px 60px rgba(255,0,110,0.5);
-    animation: ctaGlow 2s ease-in-out infinite 3.5s;
+  }
+  .badge-icon { font-size: 55px; display: block; margin-bottom: 10px; }
+  .badge-text {
+    font-size: 28px; font-weight: 900; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 1px;
+    line-height: 1.2;
   }
 
-  @keyframes ctaGlow {
-    0%, 100% { box-shadow: 0 20px 60px rgba(255,0,110,0.5); }
-    50% { box-shadow: 0 20px 80px rgba(131,56,236,0.7); }
+  /* CTA block */
+  .cta-block {
+    position: absolute;
+    top: 1650px; left: 60px; right: 60px;
+    z-index: 20;
+    display: flex; flex-direction: column; align-items: center; gap: 25px;
+    animation: fadeUp 0.6s ease forwards; opacity:0; animation-delay:2.1s;
   }
 
-  .handle-text {
-    font-size: 38px;
-    color: rgba(255,255,255,0.5);
+  .cta-address {
+    font-size: 38px; color: rgba(255,255,255,0.6); font-weight: 700;
+    letter-spacing: 2px; font-family: Arial, sans-serif;
+  }
+
+  .cta-phone {
+    font-size: 50px; font-weight: 900; color: #8CC63F;
     letter-spacing: 3px;
   }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 120px;
+    background: #F7941D;
+    display: flex; align-items: center; justify-content: center; gap: 40px;
+    z-index: 30;
+    animation: slideUp 0.6s ease forwards; opacity:0; animation-delay:2.4s;
+  }
+  .bottom-handle { font-size: 50px; font-weight: 900; color: #000; }
+  .bottom-sep { font-size: 40px; color: rgba(0,0,0,0.3); }
+  .bottom-hash { font-size: 42px; font-weight: 700; color: rgba(0,0,0,0.6); }
 
   /* Keyframes */
-  @keyframes fadeIn { to { opacity: 1; } }
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(30px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  @keyframes slideRight {
+    from { opacity:0; transform:translateX(-40px); }
+    to { opacity:1; transform:translateX(0); }
+  }
+  @keyframes slideUp {
+    from { opacity:0; transform:translateY(100%); }
+    to { opacity:1; transform:translateY(0); }
   }
 
-  /* Corner decorations */
-  .corner-deco {
-    position: absolute;
-    font-size: 80px;
-    animation: spinSlow 8s linear infinite;
-    opacity: 0.3;
-  }
-
-  @keyframes spinSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  /* Neon lines */
-  .neon-line {
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #ff006e, transparent);
-    animation: neonScan 3s ease-in-out infinite;
-    opacity: 0.6;
-    z-index: 5;
-  }
-
-  @keyframes neonScan {
-    0%, 100% { transform: translateY(0); opacity: 0; }
-    10%, 90% { opacity: 0.6; }
-    50% { transform: translateY(20px); }
-  }
+  /* Deco splatters */
+  .deco { position:absolute; opacity:0.08; font-size:80px; z-index:3; }
 </style>
 </head>
 <body>
 
-  <div class="grid-bg"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <div class="bg-pattern"></div>
 
-  <!-- Neon scan lines -->
-  <div class="neon-line" style="top:700px; left:0; right:0; animation-delay:0s;"></div>
-  <div class="neon-line" style="top:900px; left:0; right:0; animation-delay:1.5s;"></div>
+  <!-- Deco -->
+  <div class="deco" style="top:820px;left:10px;">🔥</div>
+  <div class="deco" style="top:800px;right:10px;">✨</div>
 
-  <!-- Corner decorations -->
-  <div class="corner-deco" style="top:160px; left:40px;">⭐</div>
-  <div class="corner-deco" style="top:160px; right:40px; animation-direction:reverse;">✨</div>
-
-  <!-- Flash bar -->
-  <div class="flash-bar">
-    <div class="flash-text">⚡ PROMO FLASH ⚡</div>
+  <!-- Flash header -->
+  <div class="flash-header">
+    <div class="flash-text">⚡ FORMULE DU JOUR ⚡</div>
   </div>
 
-  <!-- Discount number -->
-  <div class="countdown-section">
-    <div class="discount-label">JUSQU'À</div>
-    <span class="discount-number">50</span>
-    <div class="discount-percent">% DE RÉDUCTION</div>
-    <div class="off-label">SUR TOUT LE MENU</div>
+  <!-- Big price -->
+  <div class="formule-section">
+    <div class="formule-label">SEULEMENT</div>
+    <div class="formule-price">10</div>
+    <div class="formule-chf">CHF</div>
+    <div class="formule-tagline">"Le goût qui croque, la fraîcheur qui fait du bien !"</div>
   </div>
 
-  <!-- Products -->
-  <div class="products-section">
-    <div class="products-title">✦ INCLUS DANS LA PROMO ✦</div>
-    <div class="products-grid">
-      <div class="product-card">
-        <span class="product-emoji">🍔</span>
-        <div class="product-name">BURGER</div>
-        <div class="product-old-price">8,90€</div>
-        <div class="product-new-price">4,45€</div>
+  <!-- What's included -->
+  <div class="includes-section">
+    <div class="includes-title">✦ LA FORMULE COMPREND ✦</div>
+
+    <div class="include-row">
+      <div class="include-emoji">🥣</div>
+      <div class="include-info">
+        <div class="include-name">1 BOWL AU CHOIX</div>
+        <div class="include-detail">Classic · Cordon Bleu · Poisson · Veggie</div>
       </div>
-      <div class="product-card">
-        <span class="product-emoji">🍕</span>
-        <div class="product-name">PIZZA</div>
-        <div class="product-old-price">10,50€</div>
-        <div class="product-new-price">5,25€</div>
+    </div>
+
+    <div class="include-row">
+      <div class="include-emoji">🧃</div>
+      <div class="include-info">
+        <div class="include-name">1L HIT TEA OFFERT</div>
+        <div class="include-detail">Thé froid inclus — au choix</div>
       </div>
-      <div class="product-card">
-        <span class="product-emoji">🌮</span>
-        <div class="product-name">TACOS</div>
-        <div class="product-old-price">9,00€</div>
-        <div class="product-new-price">4,50€</div>
-      </div>
-      <div class="product-card">
-        <span class="product-emoji">🥤</span>
-        <div class="product-name">BOISSON</div>
-        <div class="product-old-price">3,50€</div>
-        <div class="product-new-price">1,75€</div>
+    </div>
+
+    <div class="include-row">
+      <div class="include-emoji">🍕</div>
+      <div class="include-info">
+        <div class="include-name">PAIN PIZZA MOELLEUX</div>
+        <div class="include-detail">Fait maison · Préparé à la commande</div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom CTA -->
-  <div class="bottom-section">
-    <div class="validity-badge">⏰ VALABLE CE SOIR SEULEMENT</div>
-    <div class="cta-btn">COMMANDEZ MAINTENANT</div>
-    <div class="handle-text">📍 LIEN EN BIO</div>
+  <!-- Badges -->
+  <div class="badges-row">
+    <div class="badge-item">
+      <span class="badge-icon">🏠</span>
+      <div class="badge-text">FAIT<br>MAISON</div>
+    </div>
+    <div class="badge-item">
+      <span class="badge-icon">🌿</span>
+      <div class="badge-text">PRODUITS<br>FRAIS</div>
+    </div>
+    <div class="badge-item">
+      <span class="badge-icon">⚡</span>
+      <div class="badge-text">PRÊT EN<br>MINUTES</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-address">📍 Rue de Carouge 69 · 1205 Genève</div>
+    <div class="cta-phone">📞 022 320 47 07</div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <div class="bottom-handle">@croustybowls</div>
+    <div class="bottom-sep">·</div>
+    <div class="bottom-hash">#teamgourmand</div>
   </div>
 
 </body>
